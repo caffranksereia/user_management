@@ -8,6 +8,7 @@ import { UserManageEntity } from "./entities/user_management.entity";
   imports:[TypeOrmModule.forFeature([UserManageEntity])],
   controllers:[UserManagementController],
   providers:[UserManagementService],
+  exports:[UserManagementService]
 
 })
 export class UserManagement {}
