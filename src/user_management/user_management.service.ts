@@ -1,15 +1,16 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UserManagemEntity } from "./entities/user_management.entity";
 import { Repository } from "typeorm";
 import { CreateUserManagement } from "./dto/user_management.dto";
 import { UpdateUserManagement } from "./dto/update_user_management.dto";
 import * as bcrt from 'bcrypt';
+import { UserManageEntity } from "./entities/user_management.entity";
+import { ReturnUserDto } from "./dto/returns/return_user_management.dto";
 @Injectable()
 export class UserManagementService {
   constructor(
-    @InjectRepository(UserManagemEntity)
-    private management_repo: Repository<UserManagemEntity>,
+    @InjectRepository(UserManageEntity)
+    private management_repo: Repository<UserManageEntity>,
 ){}
 
   async register_user(data: CreateUserManagement){
@@ -18,18 +19,19 @@ export class UserManagementService {
      return await this.management_repo.save(user)
   }
 
-  async users():Promise<UserManagemEntity[]> {
+  async users():Promise<UserManageEntity[]> {
     return this.management_repo.find()
   }
 
-  async get_user( id:string):Promise<UserManagemEntity>{
+  async get_user( id:string):Promise<UserManageEntity>{
     return this.management_repo.findOneBy({id})
   }
 
-  async update_user_profile( id:string, data: UpdateUserManagement){
+  async update_user_profile( data: UpdateUserManagement,id:string){
     await this.get_user(id);
-    return this.management_repo.update(id, data );
-    return this.get_user(id);
+    await this.management_repo.update(id,data)
+     return this.get_user(id);
+
   }
 
   async delete(id:string){
