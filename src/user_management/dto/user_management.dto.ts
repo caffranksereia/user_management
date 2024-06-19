@@ -43,14 +43,14 @@ export class CreateUserManagement {
   @IsString()
   cell_phone: string;
 
-  @IsString()
+  @IsString({ message:'Nao pode ser nulo '})
   @IsNotEmpty({message:'is not null'})
   @IsStrongPassword({
-    minLength: 6,
-    minLowercase: 1,
+    minLength:8,
+    minLowercase: 5,
     minNumbers: 1,
     minSymbols: 1,
-    minUppercase: 1
+    minUppercase: 1,
   })
   @MaxLength(20)
   password: string;

@@ -1,9 +1,9 @@
-import { minLength } from "class-validator";
+
 import { TypeUser } from "src/enum/type_user.enum";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-Entity({name:'user_management'})
-export class UserManagemEntity {
+@Entity({name:'user_management'})
+export class UserManageEntity {
   @PrimaryGeneratedColumn('uuid')
   id:string;
 
@@ -38,7 +38,7 @@ export class UserManagemEntity {
   @Column({ nullable: false,  unique: true, })
   cell_phone: string
   
-  @Column({ nullable: false ,length:6 ,  unique: true,})
+  @Column({ nullable: false  })
   password: string;
 
   
